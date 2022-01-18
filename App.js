@@ -6,105 +6,74 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   View,
+  StyleSheet,
+  SafeAreaView,
+  KeyboardAvoidingView,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import GameStart from './src/screens/GameStart';
+import GameScreen from './src/screens/Gamescreen';
+import Header from './src/components/Header';
+import GameOverScreen from './src/screens/GameOver';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [userNumber, setUserNumber] = useState('');
+  const [guessRounds, setGuessRounds] = useState(0);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const handlerStartGame = selectedNumber => {
+    setUserNumber(selectedNumber);
+    setGuessRounds(0);
+  };
+  const handlerGameOver = rounds => {
+    setGuessRounds(rounds);
   };
 
+  const handlerRestart = () => {
+    setGuessRounds(0);
+    setUserNumber('');
+  };
+
+  let content =
+    userNumber && guessRounds <= 0 ? (
+      <GameScreen userOption={userNumber} onGameOver={handlerGameOver} />
+    ) : guessRounds > 0 ? (
+      <GameOverScreen
+        rounds={guessRounds}
+        choice={userNumber}
+        onRestart={handlerRestart}
+      />
+    ) : (
+      <GameStart onStartGame={handlerStartGame} />
+    );
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior="height" style={styles.container}>
+        <View style={styles.container}>
+          <Header title="Adivina el número" />
+          {content}
         </View>
-      </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  confirmedContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexGrow: 0.15,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  confirmedtext: {
+    fontSize: 16,
+    color: '#212121',
+    marginVertical: 10,
   },
 });
 
