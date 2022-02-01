@@ -9,13 +9,10 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     margin: 15,
   },
-  containerTouchable: {
-    flex: 1,
-  },
   header: {
     flex: 1,
   },
-  name: {
+  date: {
     fontFamily: 'OpenSans-Bold',
     fontSize: 20,
   },

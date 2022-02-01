@@ -1,47 +1,39 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Categories from '../screens/categories/index';
-import ProductDetail from '../screens/product-detail/index';
-import Products from '../screens/products/index';
-import {Platform} from 'react-native';
-import {COLORS} from '../utils/constants/colors';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import ShopStackNavigation from './shop';
+import CartStackNavigation from './cart';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Stack = createNativeStackNavigator();
+const BottomTabs = createBottomTabNavigator();
 
 const AppNavigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Categories"
+      <BottomTabs.Navigator
+        initialRouteName="Shop"
         screenOptions={{
-          headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? COLORS.primary : '',
-          },
-          headerTintColor: Platform.OS === 'android' ? 'white' : COLORS.primary,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerShown: false,
         }}>
-        <Stack.Screen name="Categories" component={Categories} />
-        <Stack.Screen
-          name="Products"
-          component={Products}
-          options={({route}) => ({
-            title: route.params.name,
-            headerStyle: {
-              backgroundColor: route.params.color,
-            },
-          })}
+        <BottomTabs.Screen
+          name="Shop"
+          component={ShopStackNavigation}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <Ionicons name="home-outline" size={20} />
+            ),
+          }}
         />
-        <Stack.Screen
-          name="ProductDetail"
-          component={ProductDetail}
-          options={({route}) => ({
-            title: route.params.name,
-          })}
+        <BottomTabs.Screen
+          name="Cart"
+          component={CartStackNavigation}
+          options={{
+            tabBarIcon: ({focused}) => (
+              <Ionicons name="cart-outline" size={20} />
+            ),
+          }}
         />
-      </Stack.Navigator>
+      </BottomTabs.Navigator>
     </NavigationContainer>
   );
 };
