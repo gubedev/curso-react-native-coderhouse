@@ -1,1 +1,1 @@
-export const MAPS_KEY = ''
+export const MAPS_KEY = '';
