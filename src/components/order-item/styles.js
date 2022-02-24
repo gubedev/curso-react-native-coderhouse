@@ -1,6 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from "react-native";
 
-const {height} = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -10,19 +10,20 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   header: {
-    flex: 1,
+    flex: 1
   },
   date: {
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 20,
+        fontFamily: 'OpenSans-Bold',
+        fontSize: 20,
   },
-  details: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-});
+    details: {
+      flex: 1,
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignItems: 'center',
+      justifyContent: 'space-between',
+  }
+  });
 
-export default styles;
+
+  export default styles;

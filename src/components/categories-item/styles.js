@@ -1,31 +1,32 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from "react-native";
 
-const {height} = Dimensions.get('window');
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: height / 4,
-    borderRadius: 6,
-    margin: 15,
-  },
-  containerTouchable: {
-    flex: 1,
-  },
-  header: {
-    flex: 1,
-  },
-  name: {
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 20,
-  },
-  details: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-});
+    container: {
+      flex: 1,
+      height: height / 4,
+      borderRadius: 6,
+      margin: 15,
+      justifyContent: "center",
+    },
+    containerTouchable: {
+        flex: 1,
+        borderRadius: 6,
+        shadowColor: 'black',
+        shadowOpacity: 0.26,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 8,
+        elevation: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 8
+    },
+    title: {
+        fontFamily: 'OpenSans-Bold',
+        fontSize: 18,
+    }
+  });
 
-export default styles;
+
+  export default styles;
